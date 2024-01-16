@@ -1,4 +1,4 @@
-package com.example.budget_ducklings_inc;
+package com.example.budget_ducklings_inc.controller;
 
 import java.io.*;
 
