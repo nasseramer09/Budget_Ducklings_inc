@@ -11,7 +11,7 @@
 <div class="main">
     <h1>Welcome to Budget Duckling Inc.</h1>
     <h3>Enter your login credentials</h3>
-    <form action="">
+    <form action="${pageContext.request.contextPath}/auth-servlet" method="post">
 
         <label for="first">Username:</label>
 
