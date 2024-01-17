@@ -62,6 +62,8 @@ public class Authentication extends HttpServlet {
         session.invalidate();
         resp.sendRedirect("/login.jsp");
 
+
+
     }
     public void destroy(){
     }
