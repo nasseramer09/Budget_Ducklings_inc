@@ -44,7 +44,7 @@ public class Authentication extends HttpServlet {
             if(employee.getUserName().equals(userName) && employee.getPassword().equals(password)){
                     HttpSession session = req.getSession(true);
                     session.setAttribute("userName", userName);
-                    resp.sendRedirect("/InvoicePage.jsp");
+                    resp.sendRedirect(req.getContextPath() + "/InvoicePage.jsp");
                     System.out.println("Användaren finns och är inloggad");
                     return;
             }
