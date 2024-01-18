@@ -12,13 +12,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DataBaseConnector {
+    public Connection getConnection() {
+        return connection;
+    }
+
     private Connection connection;
 
     public DataBaseConnector(){
 
-        try {//
-            // com.mysql.jdbc.Driver
-            Class.forName("com.mysql.cj.jdbc.Driver");
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
             connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/Budget_Ducklings_inc");
 
         } catch (ClassNotFoundException | SQLException e) {
@@ -52,7 +55,41 @@ public class DataBaseConnector {
             System.out.println(comp);
         }
         return checkUser;
+    }
+
+    public List<Components> getPaymentDetails(String userName) throws SQLException {
+
+        List<Components>paymentDetails=new ArrayList<>();
+
+        String sqlCommand="SELECT id,titel,kategori, beskrivning, pris, datum FROM employees_table WHERE userName=?";
+
+        try {
+            PreparedStatement statement = connection.prepareStatement(sqlCommand);
+            statement.setString(1,userName);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()){
+                Components components = new Components();
+                components.setId(resultSet.getString("id"));
+                components.setTitle(resultSet.getString("titel"));
+                components.setKategori(resultSet.getString("kategori"));
+                components.setBeskrivning(resultSet.getString("beskrivning"));
+                components.setPris(resultSet.getString("pris"));
+                components.setDatum(resultSet.getString("datum"));
+                paymentDetails.add(components);
+                System.out.println("loggad data" + components);
 
 
+                    for (Components componentsShow: paymentDetails){
+                        System.out.println("datan i servlet " + componentsShow);
+
+
+
+            }}
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return paymentDetails;
     }
 }
