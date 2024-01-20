@@ -1,6 +1,7 @@
 package com.example.budget_ducklings_inc.model;
 
 public class Components {
+    private String id;
     private String userName;
     private String password;
     private String title;
@@ -8,8 +9,15 @@ public class Components {
     private  String agare;
     private String datum;
     private String beskrivning;
-    private double pris;
+    private String pris;
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getUserName() {
         return userName;
@@ -35,11 +43,11 @@ public class Components {
         this.title = title;
     }
 
-    public double getPris() {
+    public String getPris() {
         return pris;
     }
 
-    public void setPris(double pris) {
+    public void setPris(String pris) {
         this.pris = pris;
     }
 
