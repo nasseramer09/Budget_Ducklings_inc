@@ -18,7 +18,7 @@ public class Authentication extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         HttpSession session = request.getSession(false);
         response.setContentType("text/html");
-
+        System.out.println("hej från doGet i auth");
 
     }
 
@@ -27,15 +27,6 @@ public class Authentication extends HttpServlet {
        switch (req.getPathInfo()){
            case "/login":
                login(req,resp);
-               String userName=req.getParameter("UserName");
-               try {
-                   List<Components>paymentDetails=dataBaseConnector.getPaymentDetails(userName);
-                   req.setAttribute("paymentDetails", paymentDetails);
-
-               } catch (SQLException e) {
-                   throw new RuntimeException(e);
-               }
-
                break;
            case "/logOut": logOut(req,resp);
            break;
@@ -45,7 +36,6 @@ public class Authentication extends HttpServlet {
         String userName=req.getParameter("UserName");
         String password = req.getParameter("password");
 
-
         List<Components> employeeList = dataBaseConnector.getAll(userName, password);
 
         for (Components employee: employeeList){
@@ -53,7 +43,8 @@ public class Authentication extends HttpServlet {
             if(employee.getUserName().equals(userName) && employee.getPassword().equals(password)){
                     HttpSession session = req.getSession(true);
                     session.setAttribute("userName", userName);
-                    resp.sendRedirect(req.getContextPath() + "/InvoicePage.jsp");
+                    resp.sendRedirect(req.getContextPath() + "/InvoicePageServices");
+                System.out.println("hej från login");
                     return;
             }
             else if (employee.getUserName()==null&&employee.getUserName().isEmpty()){
@@ -69,6 +60,7 @@ public class Authentication extends HttpServlet {
         session.setAttribute("userName", null);
         session.invalidate();
         resp.sendRedirect("/login.jsp");
+        System.out.println("hej från logout");
     }
     public void destroy(){
     }

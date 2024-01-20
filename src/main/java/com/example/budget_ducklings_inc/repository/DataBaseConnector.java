@@ -21,7 +21,7 @@ public class DataBaseConnector {
     public DataBaseConnector(){
 
         try {
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/Budget_Ducklings_inc");
 
         } catch (ClassNotFoundException | SQLException e) {
@@ -46,6 +46,7 @@ public class DataBaseConnector {
                     components.setUserName(resultSet.getString("UserName"));
                     components.setPassword(resultSet.getString("PASSWORD"));
                     checkUser.add(components);}
+            System.out.println("hej från getAll");
 
         }catch (SQLException e) {
             throw new RuntimeException(e);
@@ -76,15 +77,8 @@ public class DataBaseConnector {
                 components.setPris(resultSet.getString("pris"));
                 components.setDatum(resultSet.getString("datum"));
                 paymentDetails.add(components);
-                System.out.println("loggad data" + components);
-
-
-                    for (Components componentsShow: paymentDetails){
-                        System.out.println("datan i servlet " + componentsShow);
-
-
-
-            }}
+                System.out.println("hej från getPaymentDetails");
+            }
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
