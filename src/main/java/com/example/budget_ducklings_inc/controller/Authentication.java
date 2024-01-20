@@ -33,7 +33,7 @@ public class Authentication extends HttpServlet {
        }
     }
     private void login(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-        String userName=req.getParameter("UserName");
+        String userName=req.getParameter("userName");
         String password = req.getParameter("password");
 
         List<Components> employeeList = dataBaseConnector.getAll(userName, password);
@@ -43,8 +43,9 @@ public class Authentication extends HttpServlet {
             if(employee.getUserName().equals(userName) && employee.getPassword().equals(password)){
                     HttpSession session = req.getSession(true);
                     session.setAttribute("userName", userName);
+                    session.setAttribute("agare", userName);
                     resp.sendRedirect(req.getContextPath() + "/InvoicePageServices");
-                System.out.println("hej från login");
+
                     return;
             }
             else if (employee.getUserName()==null&&employee.getUserName().isEmpty()){
@@ -59,8 +60,7 @@ public class Authentication extends HttpServlet {
         HttpSession session = req.getSession(true);
         session.setAttribute("userName", null);
         session.invalidate();
-        resp.sendRedirect("/login.jsp");
-        System.out.println("hej från logout");
+        resp.sendRedirect(req.getContextPath() + "/login.jsp");
     }
     public void destroy(){
     }
