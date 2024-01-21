@@ -1,13 +1,7 @@
 package com.example.budget_ducklings_inc.repository;
 
 import com.example.budget_ducklings_inc.model.Components;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -57,6 +51,33 @@ public class DataBaseConnector {
             System.out.println(comp);
         }
         return checkUser;
+    }
+
+    public Components getAllById (String id) {
+        Components paymentsD=null;
+        String sqlCommand="SELECT * FROM employees_table WHERE id=?";
+
+        try {
+
+            PreparedStatement statement = connection.prepareStatement(sqlCommand);
+            statement.setString(1, id);
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()){
+                paymentsD  = new Components();
+                paymentsD.setId(resultSet.getString("id"));
+                paymentsD.setTitle(resultSet.getString("titel"));
+                paymentsD.setKategori(resultSet.getString("kategori"));
+                paymentsD.setBeskrivning(resultSet.getString("beskrivning"));
+                paymentsD.setPris(resultSet.getString("pris"));
+                paymentsD.setDatum(resultSet.getString("datum"));
+                }
+
+
+        }catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return paymentsD;
     }
 
     public List<Components> getPaymentDetails(String userName) throws SQLException {
@@ -109,25 +130,48 @@ public class DataBaseConnector {
 
     }
 
-    public void EditPayment(String agare, String titel, String kategori, String beskrivning, String pris, String datum){
-        System.out.println("Hälsning från början av addpayment metoden ");
-        String sqlCommand="INSERT INTO employees_table (titel, kategori, beskrivning, pris, datum, agare) VALUES (?,?,?,?,?,?)";
+    public void DeletePayment(String agare, String id){
 
+        String sqlCommand="DELETE FROM employees_table WHERE agare=? AND id=?";
 
         try {
             PreparedStatement statement = connection.prepareStatement(sqlCommand);
-            statement.setString(1,titel);
-            statement.setString(2,kategori);
-            statement.setString(3,beskrivning);
-            statement.setString(4,pris);
-            statement.setString(5,datum);
-            statement.setString(6,agare);
+            statement.setString(1,agare);
+            statement.setString(2,id);
+
             statement.execute();
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        System.out.println("Hälsning från slutet av addpayment metoden ");
 
+    }
+
+    public boolean EditPayment(String id, String titel, String kategori, String agare, String datum, String beskrivning, String pris){
+        System.out.println("Hälsning från början av EditPayment metoden i DatabaseConection sida ");
+
+        String sqlCommand="UPDATE `employees_table` SET `id`=?,`titel`=?," +
+                "`kategori`=?,`agare`=?,`datum`=?,`beskrivning`=?,`pris`=? WHERE agare=? And id=?";
+
+        try {
+            PreparedStatement statement = connection.prepareStatement(sqlCommand);
+            statement.setString(1,id);
+            statement.setString(2,titel);
+            statement.setString(3,kategori);
+            statement.setString(4,agare);
+            statement.setString(5,datum);
+            statement.setString(6,beskrivning);
+            statement.setString(7,pris);
+            statement.setString(8,agare);
+            statement.setString(9,id);
+
+            statement.execute();
+
+        } catch (SQLException e) {
+            System.out.println("Hälsning från slutet av EditPayment metoden i exception DatabaseConection sida ");
+            throw new RuntimeException(e);
+        }
+        System.out.println("Hälsning från slutet av EditPayment metoden i DatabaseConection sida ");
+        return true;
     }
 }
