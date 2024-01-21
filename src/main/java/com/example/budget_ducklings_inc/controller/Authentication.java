@@ -15,12 +15,6 @@ import jakarta.servlet.annotation.*;
 public class Authentication extends HttpServlet {
     DataBaseConnector dataBaseConnector = new DataBaseConnector();
 
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        HttpSession session = request.getSession(false);
-        response.setContentType("text/html");
-        System.out.println("hej från doGet i auth");
-
-    }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -28,7 +22,8 @@ public class Authentication extends HttpServlet {
            case "/login":
                login(req,resp);
                break;
-           case "/logOut": logOut(req,resp);
+           case "/logOut":
+               logOut(req,resp);
            break;
        }
     }
@@ -60,7 +55,7 @@ public class Authentication extends HttpServlet {
         HttpSession session = req.getSession(true);
         session.setAttribute("userName", null);
         session.invalidate();
-        resp.sendRedirect(req.getContextPath() + "/login.jsp");
+        resp.sendRedirect("/login.jsp");
     }
     public void destroy(){
     }
