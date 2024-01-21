@@ -2,14 +2,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Budget Ducklings inc</title>
+    <title>Budget Ducklings inc Home Page</title>
 </head>
 <body>
 <br/>
 <br><br>
 <!--koden (HTML login formuläret) är hämtat ifrån https://www.geeksforgeeks.org/html-login-form/ -->
 <div class="main">
-    <h1>Welcome to Budget Duckling Inc.</h1>
+    <h1>Welcome to Budget Duckling Inc Home Page.</h1>
     <h3>Enter your login credentials</h3>
     <form action="${pageContext.request.contextPath}/auth-servlet/login" method="post">
 
