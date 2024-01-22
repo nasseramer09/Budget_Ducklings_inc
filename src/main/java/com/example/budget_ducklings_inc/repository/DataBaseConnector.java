@@ -7,50 +7,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DataBaseConnector {
-    public Connection getConnection() {
-        return connection;
-    }
-
     private Connection connection;
-
     public DataBaseConnector(){
 
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/Budget_Ducklings_inc");
 
-        } catch (ClassNotFoundException | SQLException e) {
+        }
+        catch (ClassNotFoundException | SQLException e) {
             throw new RuntimeException(e);
         }
-    }
-
-
-    public List<Components> getAll(String userName, String password) {
-        List<Components> checkUser = new ArrayList<>();
-        String sqlCommand="SELECT UserName, PASSWORD FROM employees_table WHERE UserName=? AND PASSWORD=?";
-
-        try {
-                PreparedStatement statement = connection.prepareStatement(sqlCommand);
-                statement.setString(1, userName);
-                statement.setString(2, password);
-
-                ResultSet resultSet = statement.executeQuery();
-                while (resultSet.next()){
-                    Components components = new Components();
-
-                    components.setUserName(resultSet.getString("UserName"));
-                    components.setPassword(resultSet.getString("PASSWORD"));
-                    checkUser.add(components);}
-
-
-        }catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        for (Components comp:checkUser
-        ) {
-            System.out.println(comp);
-        }
-        return checkUser;
     }
 
     public Components getAllById (String id) {
@@ -58,7 +25,6 @@ public class DataBaseConnector {
         String sqlCommand="SELECT * FROM employees_table WHERE id=?";
 
         try {
-
             PreparedStatement statement = connection.prepareStatement(sqlCommand);
             statement.setString(1, id);
             ResultSet resultSet = statement.executeQuery();
@@ -72,9 +38,8 @@ public class DataBaseConnector {
                 paymentsD.setPris(resultSet.getString("pris"));
                 paymentsD.setDatum(resultSet.getString("datum"));
                 }
-
-
-        }catch (SQLException e) {
+        }
+        catch (SQLException e){
             throw new RuntimeException(e);
         }
         return paymentsD;
@@ -100,16 +65,14 @@ public class DataBaseConnector {
                 components.setDatum(resultSet.getString("datum"));
                 paymentDetails.add(components);
             }
-
-        } catch (SQLException e) {
+        }
+        catch (SQLException e){
             throw new RuntimeException(e);
         }
-
         return paymentDetails;
     }
 
     public void addPayment(String agare, String titel, String kategori, String beskrivning, String pris, String datum){
-        System.out.println("Hälsning från början av addpayment metoden ");
         String sqlCommand="INSERT INTO employees_table (titel, kategori, beskrivning, pris, datum, agare) VALUES (?,?,?,?,?,?)";
 
 
@@ -122,12 +85,10 @@ public class DataBaseConnector {
             statement.setString(5,datum);
             statement.setString(6,agare);
             statement.execute();
-
-        } catch (SQLException e) {
+        }
+        catch (SQLException e){
             throw new RuntimeException(e);
         }
-        System.out.println("Hälsning från slutet av addpayment metoden ");
-
     }
 
     public void DeletePayment(String agare, String id){
@@ -138,18 +99,14 @@ public class DataBaseConnector {
             PreparedStatement statement = connection.prepareStatement(sqlCommand);
             statement.setString(1,agare);
             statement.setString(2,id);
-
             statement.execute();
-
-        } catch (SQLException e) {
+        }
+        catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
     }
 
     public boolean EditPayment(String id, String titel, String kategori, String agare, String datum, String beskrivning, String pris){
-        System.out.println("Hälsning från början av EditPayment metoden i DatabaseConection sida ");
-
         String sqlCommand="UPDATE `employees_table` SET `id`=?,`titel`=?," +
                 "`kategori`=?,`agare`=?,`datum`=?,`beskrivning`=?,`pris`=? WHERE agare=? And id=?";
 
@@ -167,11 +124,10 @@ public class DataBaseConnector {
 
             statement.execute();
 
-        } catch (SQLException e) {
-            System.out.println("Hälsning från slutet av EditPayment metoden i exception DatabaseConection sida ");
+        }
+        catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        System.out.println("Hälsning från slutet av EditPayment metoden i DatabaseConection sida ");
         return true;
     }
 }

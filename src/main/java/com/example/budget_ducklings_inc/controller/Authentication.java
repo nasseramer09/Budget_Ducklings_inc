@@ -2,7 +2,9 @@ package com.example.budget_ducklings_inc.controller;
 
 import java.io.*;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.example.budget_ducklings_inc.model.Components;
 import com.example.budget_ducklings_inc.repository.DataBaseConnector;
@@ -13,6 +15,20 @@ import jakarta.servlet.annotation.*;
 
 @WebServlet(name = "authentication", urlPatterns = "/auth-servlet/*")
 public class Authentication extends HttpServlet {
+
+    private Map<String, String> users;
+    public Authentication(){
+        users = new HashMap<>(){{
+
+            put("nasser", "nasser123456");
+            put("bob", "bob123456");
+            put("demo", "demo123456");
+            put("testkonto", "testkonto123");
+
+        }
+        };
+    }
+
     DataBaseConnector dataBaseConnector = new DataBaseConnector();
 
 
@@ -31,24 +47,15 @@ public class Authentication extends HttpServlet {
         String userName=req.getParameter("userName");
         String password = req.getParameter("password");
 
-        List<Components> employeeList = dataBaseConnector.getAll(userName, password);
-
-        for (Components employee: employeeList){
-
-            if(employee.getUserName().equals(userName) && employee.getPassword().equals(password)){
-                    HttpSession session = req.getSession(true);
-                    session.setAttribute("userName", userName);
-                    session.setAttribute("agare", userName);
-                    resp.sendRedirect(req.getContextPath() + "/InvoicePageServices");
-
-                    return;
-            }
-            else if (employee.getUserName()==null&&employee.getUserName().isEmpty()){
-                req.getRequestDispatcher("/login.jsp").forward(req,resp);
-            }else {
-                resp.sendRedirect("/login.jsp?error=invalid%20login");
-            }
-         }
+       if (users.get(userName)==null){
+            req.getRequestDispatcher("/login.jsp").forward(req,resp);
+        } else if (users.get(userName).equals(password)) {
+            HttpSession session = req.getSession(true);
+            session.setAttribute("userName",userName);
+            resp.sendRedirect("/InvoicePageServices");
+        } else {
+            resp.sendRedirect("/login.jsp?error=invalid%20login");
+        }
     }
 
     private void logOut(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException{

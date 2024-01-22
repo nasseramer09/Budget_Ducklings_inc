@@ -38,6 +38,7 @@ public class InvoicePageServices extends HttpServlet  {
                 out.println("<body>");
                 out.println("<h1> Välkommen till Budget Ducklings inc.  " + userName + "</h1>");
                 out.println("<h2> Här är samtliga betalningar </h2>");
+
                 out.println("<table border='2'>");
                 out.println("<tr>");
                 out.println("<th> Id-Värde </th>");
@@ -65,6 +66,7 @@ public class InvoicePageServices extends HttpServlet  {
                     out.println("<input type='submit' value='Delete'>");
                     out.println("</form>");
                     out.println("</td>");
+
                     //Edit knappen
                     out.println("<td>");
                     out.println("<form action='" + req.getContextPath() + "/EditPayment' method='get'>");
@@ -72,7 +74,6 @@ public class InvoicePageServices extends HttpServlet  {
                     out.println("<input type='submit' value='Edit'>");
                     out.println("</form>");
                     out.println("</td>");
-
                     out.println("</tr>");
                 }
                 out.println("</table>");
@@ -80,23 +81,19 @@ public class InvoicePageServices extends HttpServlet  {
                 out.println("<button type=\"button\" onclick=\"location.href='/AddPaymentServlet/*'\">Lägg till nya betalningar</button>");
                 out.println("<br><br>");
                 out.println("<button type=\"button\" onclick=\"location.href='/login.jsp'\">Log out</button>");
-
                 out.println("</body>");
                 out.println("</html>");
-            } else if (invoiceList.isEmpty()){
+            }
+            else if (invoiceList.isEmpty()){
                 out.println("<p> Inga betalningar hittades försök att lägga till betalningar genom att trycka på lägg till knappen</p>");
-            }else {
+            }
+            else {
                 resp.sendRedirect(req.getContextPath() + "/login.jsp");
             }
-        } catch (SQLException e) {
+        }
+        catch (SQLException e) {
             throw new RuntimeException(e);
         }
 
-    }
-
-
-
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     }
 }

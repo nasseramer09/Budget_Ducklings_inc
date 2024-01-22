@@ -17,7 +17,6 @@ public class EditPayment extends HttpServlet  {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        System.out.println("hej från början i editPayment doget metod");
 
         resp.setContentType("text/html");
         PrintWriter out =resp.getWriter();
@@ -44,21 +43,19 @@ public class EditPayment extends HttpServlet  {
             out.println("<input type='submit' value='Uppdatera betalning'>");
             out.println("</form>");
 
-        }else {
+        }
+        else {
             out.println("<p>Betalning hittades inte </p>");
         }
         out.println("</body>");
         out.println("</html>");
-        System.out.println("hej från slutet av doGet i editPayment metod");
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        System.out.println("hej från början av doPost i editPayment metod");
            try {
                DataBaseConnector connector = new DataBaseConnector();
                HttpSession session = req.getSession(true);
-
                String userName  =(String) session.getAttribute("userName");
                String id=req.getParameter("id");
                String titel=req.getParameter("titel");
@@ -69,18 +66,16 @@ public class EditPayment extends HttpServlet  {
 
                if (userName==null){
                    resp.sendRedirect("/InvoicePageServices");
-               }else {
+               }
+               else {
                    connector.EditPayment(id,titel,kategori,userName,datum,beskrivning,pris);
                    resp.sendRedirect(req.getContextPath()+ "/InvoicePageServices");
                }
            }
 
            catch (Exception e){
-               System.out.println("hej från slutet av try-blocket i doPost i editPayment metod");
-
                e.printStackTrace();
            }
-        System.out.println("hej från slutet av doPost i editPayment metod");
         }
 
 }
