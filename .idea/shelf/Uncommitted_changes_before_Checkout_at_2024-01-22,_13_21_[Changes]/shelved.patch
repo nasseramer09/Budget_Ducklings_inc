@@ -1,0 +1,97 @@
+Index: src/main/java/com/example/budget_ducklings_inc/services/InvoicePageServices.java
+===================================================================
+diff --git a/src/main/java/com/example/budget_ducklings_inc/services/InvoicePageServices.java b/src/main/java/com/example/budget_ducklings_inc/controller/InvoicePageServices.java
+rename from src/main/java/com/example/budget_ducklings_inc/services/InvoicePageServices.java
+rename to src/main/java/com/example/budget_ducklings_inc/controller/InvoicePageServices.java
+--- a/src/main/java/com/example/budget_ducklings_inc/services/InvoicePageServices.java	
++++ b/src/main/java/com/example/budget_ducklings_inc/controller/InvoicePageServices.java	
+@@ -1,4 +1,4 @@
+-package com.example.budget_ducklings_inc.services;
++package com.example.budget_ducklings_inc.controller;
+ 
+ import com.example.budget_ducklings_inc.model.Components;
+ import com.example.budget_ducklings_inc.repository.DataBaseConnector;
+Index: src/main/java/com/example/budget_ducklings_inc/model/DeletePayments.java
+===================================================================
+diff --git a/src/main/java/com/example/budget_ducklings_inc/model/DeletePayments.java b/src/main/java/com/example/budget_ducklings_inc/controller/DeletePayments.java
+rename from src/main/java/com/example/budget_ducklings_inc/model/DeletePayments.java
+rename to src/main/java/com/example/budget_ducklings_inc/controller/DeletePayments.java
+--- a/src/main/java/com/example/budget_ducklings_inc/model/DeletePayments.java	
++++ b/src/main/java/com/example/budget_ducklings_inc/controller/DeletePayments.java	
+@@ -1,4 +1,4 @@
+-package com.example.budget_ducklings_inc.model;
++package com.example.budget_ducklings_inc.controller;
+ 
+ import com.example.budget_ducklings_inc.repository.DataBaseConnector;
+ import jakarta.servlet.ServletException;
+Index: src/main/java/com/example/budget_ducklings_inc/controller/Authentication.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.budget_ducklings_inc.controller;\n\nimport java.io.*;\nimport java.sql.SQLException;\nimport java.util.HashMap;\nimport java.util.List;\nimport java.util.Map;\n\nimport com.example.budget_ducklings_inc.model.Components;\nimport com.example.budget_ducklings_inc.repository.DataBaseConnector;\nimport com.mysql.cj.Session;\nimport jakarta.servlet.ServletException;\nimport jakarta.servlet.http.*;\nimport jakarta.servlet.annotation.*;\n\n@WebServlet(name = \"authentication\", urlPatterns = \"/auth-servlet/*\")\npublic class Authentication extends HttpServlet {\n\n    private Map<String, String> users;\n    public Authentication(){\n        users = new HashMap<>(){{\n\n            put(\"nasser\", \"nasser123456\");\n            put(\"bob\", \"bob123456\");\n            put(\"demo\", \"demo123456\");\n            put(\"testkonto\", \"testkonto123\");\n\n        }\n        };\n    }\n\n    DataBaseConnector dataBaseConnector = new DataBaseConnector();\n\n\n    @Override\n    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {\n       switch (req.getPathInfo()){\n           case \"/login\":\n               login(req,resp);\n               break;\n           case \"/logOut\":\n               logOut(req,resp);\n           break;\n       }\n    }\n    private void login(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {\n        String userName=req.getParameter(\"userName\");\n        String password = req.getParameter(\"password\");\n\n       if (users.get(userName)==null){\n            req.getRequestDispatcher(\"/login.jsp\").forward(req,resp);\n        } else if (users.get(userName).equals(password)) {\n            HttpSession session = req.getSession(true);\n            session.setAttribute(\"userName\",userName);\n            resp.sendRedirect(\"/InvoicePageServices\");\n        } else {\n            resp.sendRedirect(\"/login.jsp?error=invalid%20login\");\n        }\n    }\n\n    private void logOut(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException{\n        HttpSession session = req.getSession(true);\n        session.setAttribute(\"userName\", null);\n        session.invalidate();\n        resp.sendRedirect(\"/login.jsp\");\n    }\n    public void destroy(){\n    }\n}
+===================================================================
+diff --git a/src/main/java/com/example/budget_ducklings_inc/controller/Authentication.java b/src/main/java/com/example/budget_ducklings_inc/controller/Authentication.java
+--- a/src/main/java/com/example/budget_ducklings_inc/controller/Authentication.java	
++++ b/src/main/java/com/example/budget_ducklings_inc/controller/Authentication.java	
+@@ -1,14 +1,8 @@
+ package com.example.budget_ducklings_inc.controller;
+ 
+ import java.io.*;
+-import java.sql.SQLException;
+ import java.util.HashMap;
+-import java.util.List;
+ import java.util.Map;
+-
+-import com.example.budget_ducklings_inc.model.Components;
+-import com.example.budget_ducklings_inc.repository.DataBaseConnector;
+-import com.mysql.cj.Session;
+ import jakarta.servlet.ServletException;
+ import jakarta.servlet.http.*;
+ import jakarta.servlet.annotation.*;
+@@ -29,9 +23,6 @@
+         };
+     }
+ 
+-    DataBaseConnector dataBaseConnector = new DataBaseConnector();
+-
+-
+     @Override
+     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        switch (req.getPathInfo()){
+Index: src/main/java/com/example/budget_ducklings_inc/repository/DataBaseConnector.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.budget_ducklings_inc.repository;\n\nimport com.example.budget_ducklings_inc.model.Components;\n\nimport java.sql.*;\nimport java.util.ArrayList;\nimport java.util.List;\n\npublic class DataBaseConnector {\n    private Connection connection;\n    public DataBaseConnector(){\n\n        try {\n            Class.forName(\"com.mysql.cj.jdbc.Driver\");\n            connection = DriverManager.getConnection(\"jdbc:mysql://localhost:3306/Budget_Ducklings_inc\");\n\n        }\n        catch (ClassNotFoundException | SQLException e) {\n            throw new RuntimeException(e);\n        }\n    }\n\n    public Components getAllById (String id) {\n        Components paymentsD=null;\n        String sqlCommand=\"SELECT * FROM employees_table WHERE id=?\";\n\n        try {\n            PreparedStatement statement = connection.prepareStatement(sqlCommand);\n            statement.setString(1, id);\n            ResultSet resultSet = statement.executeQuery();\n\n            if (resultSet.next()){\n                paymentsD  = new Components();\n                paymentsD.setId(resultSet.getString(\"id\"));\n                paymentsD.setTitle(resultSet.getString(\"titel\"));\n                paymentsD.setKategori(resultSet.getString(\"kategori\"));\n                paymentsD.setBeskrivning(resultSet.getString(\"beskrivning\"));\n                paymentsD.setPris(resultSet.getString(\"pris\"));\n                paymentsD.setDatum(resultSet.getString(\"datum\"));\n                }\n        }\n        catch (SQLException e){\n            throw new RuntimeException(e);\n        }\n        return paymentsD;\n    }\n\n    public List<Components> getPaymentDetails(String userName) throws SQLException {\n\n        List<Components>paymentDetails=new ArrayList<>();\n\n        String sqlCommand=\"SELECT id,titel,kategori, beskrivning, pris, datum FROM employees_table WHERE agare=?\";\n\n        try {\n            PreparedStatement statement = connection.prepareStatement(sqlCommand);\n            statement.setString(1,userName);\n            ResultSet resultSet = statement.executeQuery();\n            while (resultSet.next()){\n                Components components = new Components();\n                components.setId(resultSet.getString(\"id\"));\n                components.setTitle(resultSet.getString(\"titel\"));\n                components.setKategori(resultSet.getString(\"kategori\"));\n                components.setBeskrivning(resultSet.getString(\"beskrivning\"));\n                components.setPris(resultSet.getString(\"pris\"));\n                components.setDatum(resultSet.getString(\"datum\"));\n                paymentDetails.add(components);\n            }\n        }\n        catch (SQLException e){\n            throw new RuntimeException(e);\n        }\n        return paymentDetails;\n    }\n\n    public void addPayment(String agare, String titel, String kategori, String beskrivning, String pris, String datum){\n        String sqlCommand=\"INSERT INTO employees_table (titel, kategori, beskrivning, pris, datum, agare) VALUES (?,?,?,?,?,?)\";\n\n\n        try {\n            PreparedStatement statement = connection.prepareStatement(sqlCommand);\n            statement.setString(1,titel);\n            statement.setString(2,kategori);\n            statement.setString(3,beskrivning);\n            statement.setString(4,pris);\n            statement.setString(5,datum);\n            statement.setString(6,agare);\n            statement.execute();\n        }\n        catch (SQLException e){\n            throw new RuntimeException(e);\n        }\n    }\n\n    public void DeletePayment(String agare, String id){\n\n        String sqlCommand=\"DELETE FROM employees_table WHERE agare=? AND id=?\";\n\n        try {\n            PreparedStatement statement = connection.prepareStatement(sqlCommand);\n            statement.setString(1,agare);\n            statement.setString(2,id);\n            statement.execute();\n        }\n        catch (SQLException e) {\n            throw new RuntimeException(e);\n        }\n    }\n\n    public boolean EditPayment(String id, String titel, String kategori, String agare, String datum, String beskrivning, String pris){\n        String sqlCommand=\"UPDATE `employees_table` SET `id`=?,`titel`=?,\" +\n                \"`kategori`=?,`agare`=?,`datum`=?,`beskrivning`=?,`pris`=? WHERE agare=? And id=?\";\n\n        try {\n            PreparedStatement statement = connection.prepareStatement(sqlCommand);\n            statement.setString(1,id);\n            statement.setString(2,titel);\n            statement.setString(3,kategori);\n            statement.setString(4,agare);\n            statement.setString(5,datum);\n            statement.setString(6,beskrivning);\n            statement.setString(7,pris);\n            statement.setString(8,agare);\n            statement.setString(9,id);\n\n            statement.execute();\n\n        }\n        catch (SQLException e) {\n            throw new RuntimeException(e);\n        }\n        return true;\n    }\n}\n
+===================================================================
+diff --git a/src/main/java/com/example/budget_ducklings_inc/repository/DataBaseConnector.java b/src/main/java/com/example/budget_ducklings_inc/repository/DataBaseConnector.java
+--- a/src/main/java/com/example/budget_ducklings_inc/repository/DataBaseConnector.java	
++++ b/src/main/java/com/example/budget_ducklings_inc/repository/DataBaseConnector.java	
+@@ -106,7 +106,7 @@
+         }
+     }
+ 
+-    public boolean EditPayment(String id, String titel, String kategori, String agare, String datum, String beskrivning, String pris){
++    public void EditPayment(String id, String titel, String kategori, String agare, String datum, String beskrivning, String pris){
+         String sqlCommand="UPDATE `employees_table` SET `id`=?,`titel`=?," +
+                 "`kategori`=?,`agare`=?,`datum`=?,`beskrivning`=?,`pris`=? WHERE agare=? And id=?";
+ 
+@@ -128,6 +128,6 @@
+         catch (SQLException e) {
+             throw new RuntimeException(e);
+         }
+-        return true;
++
+     }
+ }
+Index: src/main/java/com/example/budget_ducklings_inc/services/EditPayment.java
+===================================================================
+diff --git a/src/main/java/com/example/budget_ducklings_inc/services/EditPayment.java b/src/main/java/com/example/budget_ducklings_inc/controller/EditPayment.java
+rename from src/main/java/com/example/budget_ducklings_inc/services/EditPayment.java
+rename to src/main/java/com/example/budget_ducklings_inc/controller/EditPayment.java
+--- a/src/main/java/com/example/budget_ducklings_inc/services/EditPayment.java	
++++ b/src/main/java/com/example/budget_ducklings_inc/controller/EditPayment.java	
+@@ -1,4 +1,4 @@
+-package com.example.budget_ducklings_inc.services;
++package com.example.budget_ducklings_inc.controller;
+ 
+ import com.example.budget_ducklings_inc.model.Components;
+ import com.example.budget_ducklings_inc.repository.DataBaseConnector;

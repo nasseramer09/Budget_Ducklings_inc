@@ -1,0 +1,19 @@
+<changelist name="Uncommitted_changes_before_Checkout_at_2024-01-22,_13_21_[Changes]1" date="1705926110743" recycled="true" deleted="true">
+  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2024-01-22,_13_21_[Changes]1/shelved.patch" />
+  <option name="DESCRIPTION" value="Uncommitted changes before Checkout at 2024-01-22, 13:21 [Changes]" />
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/com/example/budget_ducklings_inc/controller/Authentication.class" />
+    <option name="AFTER_PATH" value="target/classes/com/example/budget_ducklings_inc/controller/Authentication.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2024-01-22,_13_21_[Changes]1/Authentication.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/Budget_Ducklings_inc-1.0-SNAPSHOT/WEB-INF/classes/com/example/budget_ducklings_inc/repository/DataBaseConnector.class" />
+    <option name="AFTER_PATH" value="target/Budget_Ducklings_inc-1.0-SNAPSHOT/WEB-INF/classes/com/example/budget_ducklings_inc/repository/DataBaseConnector.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2024-01-22,_13_21_[Changes]1/DataBaseConnector.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/com/example/budget_ducklings_inc/controller/Authentication$1.class" />
+    <option name="AFTER_PATH" value="target/classes/com/example/budget_ducklings_inc/controller/Authentication$1.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2024-01-22,_13_21_[Changes]1/Authentication$1.class" />
+  </binary>
+</changelist>
