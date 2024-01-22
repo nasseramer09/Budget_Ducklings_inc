@@ -1,4 +1,4 @@
-package com.example.budget_ducklings_inc.services;
+package com.example.budget_ducklings_inc.controller;
 
 import com.example.budget_ducklings_inc.model.Components;
 import com.example.budget_ducklings_inc.repository.DataBaseConnector;
