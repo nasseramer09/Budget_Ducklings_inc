@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ArtifactsWorkspaceSettings">
     <artifacts-to-build>
-      <artifact name="Budget_Ducklings_inc:war" />
       <artifact name="Budget_Ducklings_inc:war exploded" />
     </artifacts-to-build>
   </component>
@@ -11,16 +10,37 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="181d53e1-8803-4cf3-9332-2cf2576d20fb" name="Changes" comment="last commit">
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/register.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../webPaymentspring/src/main/java/Controller/HomeController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/Budget_Ducklings_inc-1.0-SNAPSHOT/META-INF/MANIFEST.MF" beforeDir="false" afterPath="$PROJECT_DIR$/target/Budget_Ducklings_inc-1.0-SNAPSHOT/META-INF/MANIFEST.MF" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/Budget_Ducklings_inc-1.0-SNAPSHOT/WEB-INF/classes/com/example/budget_ducklings_inc/controller/DeletePayments.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/Budget_Ducklings_inc-1.0-SNAPSHOT/WEB-INF/classes/com/example/budget_ducklings_inc/controller/EditPayment.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/Budget_Ducklings_inc-1.0-SNAPSHOT/WEB-INF/classes/com/example/budget_ducklings_inc/controller/InvoicePageServices.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/budget_ducklings_inc/controller/DeletePayments.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/budget_ducklings_inc/controller/EditPayment.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/budget_ducklings_inc/controller/InvoicePageServices.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/budget_ducklings_inc/controller/AddPayment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/budget_ducklings_inc/controller/AddPayment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/budget_ducklings_inc/controller/Authentication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/budget_ducklings_inc/controller/Authentication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/budget_ducklings_inc/model/Components.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/budget_ducklings_inc/model/Components.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/budget_ducklings_inc/repository/DataBaseConnector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/budget_ducklings_inc/repository/DataBaseConnector.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/budget_ducklings_inc/services/InvoicePageServices.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/budget_ducklings_inc/services/InvoicePageServices.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/login.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/login.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Budget_Ducklings_inc-1.0-SNAPSHOT.war" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Budget_Ducklings_inc-1.0-SNAPSHOT/META-INF/MANIFEST.MF" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Budget_Ducklings_inc-1.0-SNAPSHOT/WEB-INF/classes/com/example/budget_ducklings_inc/controller/AddPayment.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Budget_Ducklings_inc-1.0-SNAPSHOT/WEB-INF/classes/com/example/budget_ducklings_inc/controller/Authentication$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Budget_Ducklings_inc-1.0-SNAPSHOT/WEB-INF/classes/com/example/budget_ducklings_inc/controller/Authentication.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Budget_Ducklings_inc-1.0-SNAPSHOT/WEB-INF/classes/com/example/budget_ducklings_inc/model/Components.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Budget_Ducklings_inc-1.0-SNAPSHOT/WEB-INF/classes/com/example/budget_ducklings_inc/model/DeletePayments.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Budget_Ducklings_inc-1.0-SNAPSHOT/WEB-INF/classes/com/example/budget_ducklings_inc/repository/DataBaseConnector.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Budget_Ducklings_inc-1.0-SNAPSHOT/WEB-INF/classes/com/example/budget_ducklings_inc/services/EditPayment.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Budget_Ducklings_inc-1.0-SNAPSHOT/WEB-INF/classes/com/example/budget_ducklings_inc/services/InvoicePageServices.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Budget_Ducklings_inc-1.0-SNAPSHOT/WEB-INF/lib/mysql-connector-j-8.2.0.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Budget_Ducklings_inc-1.0-SNAPSHOT/WEB-INF/lib/protobuf-java-3.21.9.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Budget_Ducklings_inc-1.0-SNAPSHOT/WEB-INF/web.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Budget_Ducklings_inc-1.0-SNAPSHOT/login.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/budget_ducklings_inc/controller/AddPayment.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/budget_ducklings_inc/controller/Authentication$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/budget_ducklings_inc/controller/Authentication.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/budget_ducklings_inc/model/Components.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/budget_ducklings_inc/model/DeletePayments.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/budget_ducklings_inc/repository/DataBaseConnector.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/budget_ducklings_inc/services/EditPayment.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/budget_ducklings_inc/services/InvoicePageServices.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../git4" beforeDir="false" afterPath="$PROJECT_DIR$/../git4" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -31,8 +51,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Jsp File" />
         <option value="Class" />
+        <option value="Jsp File" />
       </list>
     </option>
   </component>
@@ -96,9 +116,10 @@
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;sql.rename.search.for.storage.occurrences&quot;: &quot;true&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
   &quot;keyToStringList&quot;: {
@@ -120,7 +141,7 @@
       <deployment>
         <artifact name="Budget_Ducklings_inc:war exploded">
           <settings>
-            <option name="CONTEXT_PATH" value="/" />
+            <option name="CONTEXT_PATH" value="" />
           </settings>
         </artifact>
       </deployment>
@@ -224,6 +245,11 @@
       <workItem from="1705924789603" duration="1348000" />
       <workItem from="1705926141599" duration="575000" />
       <workItem from="1705926724957" duration="391000" />
+      <workItem from="1705927119872" duration="716000" />
+      <workItem from="1705997814714" duration="394000" />
+      <workItem from="1705998213097" duration="5497000" />
+      <workItem from="1706020634607" duration="16438000" />
+      <workItem from="1706083729944" duration="3305000" />
     </task>
     <task id="LOCAL−00001" summary="last commit">
       <option name="closed" value="true" />

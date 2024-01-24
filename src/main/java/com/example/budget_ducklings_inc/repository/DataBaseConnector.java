@@ -8,16 +8,74 @@ import java.util.List;
 
 public class DataBaseConnector {
     private Connection connection;
+
     public DataBaseConnector(){
 
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/Budget_Ducklings_inc");
 
+            connection.prepareStatement("DROP TABLE IF EXISTS employees_table").execute();
+
+            connection.prepareStatement("CREATE TABLE employees_table (" +
+                    "id int(11) AUTO_INCREMENT PRIMARY KEY, " +
+                    "userName varchar(32) UNIQUE, " +
+                    "password varchar(64)," +
+                    "titel varchar(100)," +
+                    "kategori varchar(100)," +
+                    "beskrivning varchar(250)," +
+                    "agare varchar(32),"+
+                    "pris DECIMAL(10,2)," +
+                    "datum varchar (32))").execute();
+
+            create("bob", "bob123456");
+            create("demo", "demo123456");
+            create("nasser", "nasser123456");
+            create("test", "test123456");
+
         }
         catch (ClassNotFoundException | SQLException e) {
             throw new RuntimeException(e);
         }
+
+
+    }
+
+    public boolean create (String userName, String password){
+        try {
+            String sqlCommand="INSERT INTO employees_table(userName, password) VALUES (?,?)";
+            PreparedStatement statement = connection.prepareStatement(sqlCommand);
+            statement.setString(1,userName);
+            statement.setString(2,password);
+            statement.execute();
+        } catch (SQLIntegrityConstraintViolationException e){
+        return false;}
+        catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+            return true;
+    }
+
+    public String findPassword (String userName) {
+       String password;
+       try {
+           String sqlCommand="SELECT password FROM employees_table WHERE userName=?";
+           PreparedStatement statement= connection.prepareStatement(sqlCommand);
+           statement.setString(1,userName);
+
+           ResultSet resultSet = statement.executeQuery();
+
+           if (resultSet.next()){
+               password=resultSet.getString("password");
+
+           }else {
+               password=null;
+           }
+
+       }catch (SQLException e){
+           throw new RuntimeException(e);
+       }
+        return password;
     }
 
     public Components getAllById (String id) {

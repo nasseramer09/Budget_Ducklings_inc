@@ -37,16 +37,23 @@ public class AddPayment extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        DataBaseConnector connector = new DataBaseConnector();
-        HttpSession session = req.getSession();
-        String userName = (String) session.getAttribute("userName");
-        String title=req.getParameter("titel");
-        String kategori=req.getParameter("kategori");
-        String beskrivning=req.getParameter("beskrivning");
-        String pris=req.getParameter("pris");
-        String datum=req.getParameter("datum");
-        connector.addPayment(userName,title,kategori,beskrivning,pris,datum);
-        resp.sendRedirect(req.getContextPath() + "/InvoicePageServices");
+        try {
+            DataBaseConnector connector = new DataBaseConnector();
+            HttpSession session = req.getSession(true);
+            String userName = (String) session.getAttribute("userName");
+            String title=req.getParameter("titel");
+            String kategori=req.getParameter("kategori");
+            String beskrivning=req.getParameter("beskrivning");
+            String pris=req.getParameter("pris");
+            String datum=req.getParameter("datum");
+            connector.addPayment(userName,title,kategori,beskrivning,pris,datum);
+            resp.sendRedirect(req.getContextPath() + "/InvoicePageServices");
+        } catch (Exception e){
+            e.printStackTrace();
+
+            resp.getWriter().println("Error" + e.getMessage());
+        }
+
 
     }
 }
